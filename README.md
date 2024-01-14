@@ -23,6 +23,8 @@ This idea comes from my first encounter with MAS during my internship at Inria i
 
 ## Credits and references
 
-[The construct and application of knowledge diffusion model](https://www.sciencedirect.com/science/article/abs/pii/S0957417403000459)<br/>
-[Inria mOex team](https://moex.inria.fr/people/index.html)
+* [The construct and application of knowledge diffusion model](https://www.sciencedirect.com/science/article/abs/pii/S0957417403000459)<br/>
+* Inria [mOex](https://moex.inria.fr/people/index.html) team<br/>
+* [Calicoba](https://www.youtube.com/watch?v=jDddDHp71Ds) method for parameters calibration<br/>
+* Netlogo [programming tutorial](https://ccl.northwestern.edu/netlogo/docs/programming.html)<br/>
 
