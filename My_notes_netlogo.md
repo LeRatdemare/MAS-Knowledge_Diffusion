@@ -82,7 +82,7 @@ We can then call one of those 4 procedures on agents :
   * **ask** to make them do something
   * **any?** to see if the agentset is empty
   * **all?** to see if they all satisfy a condition
-  * **count** to report the size of the agentset
+  * **count** to report the size of the agentset <br/>
  Or we can do more complex stuff :
    * ask **one-of** turtles \[ commands \] to randomly pick 1 agent
    * ask **max-one-of** patches \[ count turtles-here \] \[ commands \] pick the agent with the highest value for given reporter
