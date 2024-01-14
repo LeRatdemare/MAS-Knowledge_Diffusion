@@ -42,7 +42,7 @@ to draw-polygon [num-sides len] ;; turtle procedure
     rt 360 / num-sides
   ]
   pen-up
-  show who ;; Prints the index of the turtle who called procedure
+;  show who ;; Prints the index of the turtle who called procedure BUT SOOOOO SLOW
 end
 
 to swap-colors [turtle1 turtle2]
@@ -117,6 +117,24 @@ NIL
 NIL
 NIL
 1
+
+PLOT
+49
+250
+385
+507
+Turtles on patches with pxcor divisible by 5
+NIL
+NIL
+0.0
+10.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"default" 1.0 0 -16777216 true "" "plot count turtles"
 
 @#$#@#$#@
 ## WHAT IS IT?

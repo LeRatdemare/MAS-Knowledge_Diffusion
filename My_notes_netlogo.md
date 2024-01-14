@@ -9,7 +9,7 @@
 
 |  Procedure/Variable | Description |
 |  --------- | ----------- |
-|  **hatch-\<breed\>** number \[ context \] | Creates *number* new turtles with all the same values for its variables (including coordinates) except the *who* index |
+|  **hatch-\<breeds\>** number \[ commands \] | Creates *number* new turtles with all the same values for its variables (including coordinates) except the *who* index |
 |  **create-link-with** turtle number | Creates a link between this turtle and the turtle *number* |
 |  **patch-at** xoffset yoffset | This reporter reports the first patch at an *xoffset* and *yoffset* distance from the turtle who asked |
 
@@ -21,6 +21,10 @@
 * *pxcor* and *pycor* are necessarily integers
 * The patch at (0,0) is called the origin
 * *pycor* increases as you go up on the screen
+
+|  Procedure/Variable | Description |
+|  --------- | ----------- |
+|  **sprout-\<breeds\>** number \[ commands \] | Creates *number* new turtles at this patch and then runs the *commands* on them|
 
 ### Link
 
@@ -34,10 +38,6 @@
 * Is not situated in the world
 * Gives instructions to the other agents
 * Can create turtles
-
-### World
-
-* Is divided in a grid of patches
 
 ## Procedures
 
@@ -58,7 +58,7 @@ They tell agents what to do. **Primitives** are built into Netlogo whilst **proc
 
 ## Agentsets
 
-Exemple code to report agentsets
+Exemple code to report agentsets :
 ```
 other turtles ;; all other turtles
 other turtles-here ;; on this patch
@@ -78,6 +78,17 @@ neighbors4 ;; shorthand for those four patches
 ;; all the links connected to turtle 0
 [my-links] of turtle 0
 ```
+We can then call one of those 4 procedures on agents :
+  * **ask** to make them do something
+  * **any?** to see if the agentset is empty
+  * **all?** to see if they all satisfy a condition
+  * **count** to report the size of the agentset
+ Or we can do more complex stuff :
+   * ask **one-of** turtles \[ commands \] to randomly pick 1 agent
+   * ask **max-one-of** patches \[ count turtles-here \] \[ commands \] pick the agent with the highest value for given reporter
+   * **member?** agent agentset to report wether or not *agent* is in *agentset*
+   * **turtle-set turtles** (respectively patches and links) to create a special independent agentset
+
 
 ## Behavior Search
 
