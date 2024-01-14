@@ -22,6 +22,7 @@ This idea comes from my first encounter with MAS during my internship at Inria i
 ## Related Models
 
 ## Credits and references
-[The construct and application of knowledge diffusion model](https://www.sciencedirect.com/science/article/abs/pii/S0957417403000459)
+
+[The construct and application of knowledge diffusion model](https://www.sciencedirect.com/science/article/abs/pii/S0957417403000459)<br/>
 [Inria mOex team](https://moex.inria.fr/people/index.html)
 
