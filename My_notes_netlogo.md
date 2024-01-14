@@ -7,10 +7,11 @@
 * Have positions in the World
 * *xcor* and *ycor* are not necessarily integers, turtles can be anywhere in a patch
 
-|  Procedure | Description |
+|  Procedure/Variable | Description |
 |  --------- | ----------- |
-|  **hatch-<breed>** number \[ context \] | Creates *number* new turtles with all same values for its variables (including coordinates) except the *who* index |
-|  Procedure | Description |
+|  **hatch-\<breed\>** number \[ context \] | Creates *number* new turtles with all the same values for its variables (including coordinates) except the *who* index |
+|  **create-link-with** turtle number | Creates a link between this turtle and the turtle *number* |
+|  **patch-at** xoffset yoffset | This reporter reports the first patch at an *xoffset* and *yoffset* distance from the turtle who asked |
 
 ### Patch
 
@@ -47,6 +48,35 @@ They tell agents what to do. **Primitives** are built into Netlogo whilst **proc
 * An action for an agent to carry-out, resulting in some effect
 * Typically begins with a verb such as "create", "die", "jump", etc...
 * We define them using the **to** keyword
+
+## Agentsets
+
+Exemple code to report agentsets
+```
+;; all other turtles:
+other turtles
+;; all other turtles on this patch:
+other turtles-here
+;; all red turtles:
+turtles with [color = red]
+;; all red turtles on my patch
+turtles-here with [color = red]
+;; patches on right side of view
+patches with [pxcor > 0]
+;; all turtles less than 3 patches away
+turtles in-radius 3
+;; the four patches to the east, north, west, and south
+patches at-points [[1 0] [0 1] [-1 0] [0 -1]]
+;; shorthand for those four patches
+neighbors4
+;; turtles in the first quadrant that are on a green patch
+turtles with [(xcor > 0) and (ycor > 0)
+              and (pcolor = green)]
+;; turtles standing on my neighboring four patches
+turtles-on neighbors4
+;; all the links connected to turtle 0
+[my-links] of turtle 0
+```
 
 ### Reporters
 

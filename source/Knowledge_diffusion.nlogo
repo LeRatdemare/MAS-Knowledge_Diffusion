@@ -10,18 +10,25 @@ to setup
   clear-turtles
 
   create-turtles 10
-  ask turtles [set knowledge random 100]
-  ask patches [set can-study random-float 1.0 < 0.2]
+  ask turtles [
+    set knowledge random 100
+    fd 50 ;; spread them around
+  ]
+  ask patches [
+    set can-study random-float 1.0 < 0.2
+    if pxcor > 0 [ set pcolor gray]
+  ]
   reset-ticks
 end
 
 to go
   ask turtles [
-    draw-polygon 8 who ;; create polygon with side-length of the turtle's index (who)
+    every 2 [ draw-polygon 8 who * 0.5 ] ;; create polygon with side-length of the turtle's index (who)
     fd 1 ;; forward 1 step
     rt random 10 ;; turn right by 0 up to 9 units
     lt random 10 ;; turn left
   ]
+  ;; wait 0.5
   tick
 end
 
