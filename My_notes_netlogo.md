@@ -7,6 +7,11 @@
 * Have positions in the World
 * *xcor* and *ycor* are not necessarily integers, turtles can be anywhere in a patch
 
+|  Procedure | Description |
+|  --------- | ----------- |
+|  **hatch-<breed>** number \[ context \] | Creates *number* new turtles with all same values for its variables (including coordinates) except the *who* index |
+|  Procedure | Description |
+
 ### Patch
 
 * A portion of the floor where turtles can go
@@ -14,7 +19,7 @@
 * Can create turtles
 * *pxcor* and *pycor* are necessarily integers
 * The patch at (0,0) is called the origin
-* *pycor* increase as you go up on the screen
+* *pycor* increases as you go up on the screen
 
 ### Link
 
@@ -29,9 +34,25 @@
 * Gives instructions to the other agents
 * Can create turtles
 
-## World
+### World
 
 * Is divided in a grid of patches
+
+## Procedures
+
+They tell agents what to do. **Primitives** are built into Netlogo whilst **procedures** are the one we define ourselves. Their definitions always end with the **end** keyword.
+
+### Command
+
+* An action for an agent to carry-out, resulting in some effect
+* Typically begins with a verb such as "create", "die", "jump", etc...
+* We define them using the **to** keyword
+
+### Reporters
+
+* Instruction for computing a value, which the agent then "reports" to whoever asked it
+* Its name typically is a noun or a noun phrase
+* We define them using the **to-report** keyword
 
 ## Behavior Search
 

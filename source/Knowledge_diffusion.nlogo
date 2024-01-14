@@ -1,10 +1,60 @@
+globals [disciplines] ;; Defining a global variable without using interface
+turtles-own [knowledge] ;; Defining a turtle variable
+patches-own [can-study] ;; Defining a patch variable
+links-own [affinity] ;; Defining a link variable
 
+;; Classic procedures
+
+to setup
+  clear-all
+  clear-turtles
+
+  create-turtles 10
+  ask turtles [set knowledge random 100]
+  ask patches [set can-study random-float 1.0 < 0.2]
+  reset-ticks
+end
+
+to go
+  ask turtles [
+    draw-polygon 8 who ;; create polygon with side-length of the turtle's index (who)
+    fd 1 ;; forward 1 step
+    rt random 10 ;; turn right by 0 up to 9 units
+    lt random 10 ;; turn left
+  ]
+  tick
+end
+
+
+;; MY PROCEDURES
+
+to draw-polygon [num-sides len] ;; turtle procedure
+  pen-down
+  repeat num-sides [
+    fd len
+    rt 360 / num-sides
+  ]
+  pen-up
+  show who ;; Prints the index of the turtle who called procedure
+end
+
+to swap-colors [turtle1 turtle2]
+  let temp [color] of turtle1
+  ask turtle1 [ set color [color] of turtle2 ]
+  ask turtle2 [ set color temp ]
+end
+
+to-report abs-value [number]
+  ifelse number >= 0
+    [ report number ]
+    [ report (- number) ]
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
-210
-10
-647
-448
+480
+66
+917
+504
 -1
 -1
 13.0
@@ -26,6 +76,40 @@ GRAPHICS-WINDOW
 1
 ticks
 30.0
+
+BUTTON
+91
+125
+154
+158
+NIL
+setup
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+192
+125
+255
+158
+NIL
+go
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
