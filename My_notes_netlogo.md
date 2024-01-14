@@ -49,40 +49,35 @@ They tell agents what to do. **Primitives** are built into Netlogo whilst **proc
 * Typically begins with a verb such as "create", "die", "jump", etc...
 * We define them using the **to** keyword
 
-## Agentsets
-
-Exemple code to report agentsets
-```
-;; all other turtles:
-other turtles
-;; all other turtles on this patch:
-other turtles-here
-;; all red turtles:
-turtles with [color = red]
-;; all red turtles on my patch
-turtles-here with [color = red]
-;; patches on right side of view
-patches with [pxcor > 0]
-;; all turtles less than 3 patches away
-turtles in-radius 3
-;; the four patches to the east, north, west, and south
-patches at-points [[1 0] [0 1] [-1 0] [0 -1]]
-;; shorthand for those four patches
-neighbors4
-;; turtles in the first quadrant that are on a green patch
-turtles with [(xcor > 0) and (ycor > 0)
-              and (pcolor = green)]
-;; turtles standing on my neighboring four patches
-turtles-on neighbors4
-;; all the links connected to turtle 0
-[my-links] of turtle 0
-```
 
 ### Reporters
 
 * Instruction for computing a value, which the agent then "reports" to whoever asked it
 * Its name typically is a noun or a noun phrase
 * We define them using the **to-report** keyword
+
+## Agentsets
+
+Exemple code to report agentsets
+```
+other turtles ;; all other turtles
+other turtles-here ;; on this patch
+turtles with [color = red]
+turtles-here with [color = red]
+turtles in-radius 3
+;; turtles in the first quadrant that are on a green patch
+turtles with [(xcor > 0) and (ycor > 0)
+              and (pcolor = green)]
+;; turtles standing on my neighboring four patches
+turtles-on neighbors4
+
+patches with [pxcor > 0]
+patches at-points [[1 0] [0 1] [-1 0] [0 -1]]
+neighbors4 ;; shorthand for those four patches
+
+;; all the links connected to turtle 0
+[my-links] of turtle 0
+```
 
 ## Behavior Search
 
