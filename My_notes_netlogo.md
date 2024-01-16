@@ -91,6 +91,19 @@ Or we can do more complex stuff :
   * **member?** agent agentset to report wether or not *agent* is in *agentset*
   * **turtle-set turtles** (respectively patches and links) to create a special independent agentset
 
+##  Breeds
+
+* Are either turtle breeds or link breeds
+
+|  Procedure/Variable | Description |
+|  --------- | ----------- |
+|  **create-\<breeds\>** number \[ commands \] | Creates *number* new turtles at the origin with random parameters and then runs the *commands* on them |
+|  **hatch-\<breeds\>** number \[ commands \] | The turtle who calls this method creates *number* new turtles which inherits all of its variables and then runs the *commands* on them |
+|  **sprout-\<breeds\>** number \[ commands \] | The patch who calls this method creates *number* new turtles on it with random parameters and then runs the *commands* on them |
+|  **\<breeds\>-here** \[ commands \] | Reports an agentset with all \<*breeds*\> turtles on the same patch |
+|  **\<breeds\>-at** dx dy \[ commands \] | Reports an agentset with all \<*breeds*\> turtles at the patch at dx dy distance from here |
+|  **\<breeds\>-on** agent (or agentset) \[ commands \] | Reports an agentset with all \<*breeds*\> turtles on the same patch that the give agent or agentset |
+|  **is-a-\<breeds\>?** value \[ commands \] | Reports true if value is a \<*breed*\> turtle |
 
 ## Behavior Search
 

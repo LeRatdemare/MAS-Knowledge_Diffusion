@@ -3,16 +3,25 @@ turtles-own [knowledge] ;; Defining a turtle variable
 patches-own [can-study] ;; Defining a patch variable
 links-own [affinity] ;; Defining a link variable
 
+breed [extraverts extravert]
+breed [introverts introvert]
+
 ;; Classic procedures
 
 to setup
   clear-all
-  clear-turtles
 
-  create-turtles 10
+  create-extraverts 5
+  create-introverts 5
   ask turtles [
     set knowledge random 100
     fd 50 ;; spread them around
+  ]
+  ask extraverts [
+    set color 65
+  ]
+  ask introverts [
+    set color 46
   ]
   ask patches [
     set can-study random-float 1.0 < 0.2
@@ -23,10 +32,8 @@ end
 
 to go
   ask turtles [
-    every 2 [ draw-polygon 8 who * 0.5 ] ;; create polygon with side-length of the turtle's index (who)
-    fd 1 ;; forward 1 step
-    rt random 10 ;; turn right by 0 up to 9 units
-    lt random 10 ;; turn left
+;    draw-polygon 8 who * 0.5 ;; create polygon with side-length of the turtle's index (who)
+    move
   ]
   ;; wait 0.5
   tick
@@ -34,6 +41,14 @@ end
 
 
 ;; MY PROCEDURES
+
+to move
+  fd 1 ;; forward 1 step
+  rt random 10 ;; turn right by 0 up to 9 units
+  lt random 10 ;; turn left
+end
+
+;; MY USELESS TEST PROCEDURES
 
 to draw-polygon [num-sides len] ;; turtle procedure
   pen-down
