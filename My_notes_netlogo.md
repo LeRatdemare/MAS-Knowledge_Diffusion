@@ -103,7 +103,17 @@ Or we can do more complex stuff :
 |  **\<breeds\>-here** \[ commands \] | Reports an agentset with all \<*breeds*\> turtles on the same patch |
 |  **\<breeds\>-at** dx dy \[ commands \] | Reports an agentset with all \<*breeds*\> turtles at the patch at dx dy distance from here |
 |  **\<breeds\>-on** agent (or agentset) \[ commands \] | Reports an agentset with all \<*breeds*\> turtles on the same patch that the give agent or agentset |
-|  **is-a-\<breeds\>?** value \[ commands \] | Reports true if value is a \<*breed*\> turtle |
+|  **is-\<breed\>?** value \[ commands \] | Reports true if value is a \<*breed*\> turtle |
+
+## Shortcuts
+| Shortcut | Description |
+|  --------- | ----------- |
+| *ctrl* + *-* | Hide the current procedure |
+| *ctrl* + *+* | Show the current procedure |
+| *ctrl* + *=* | Zoom in |
+| *ctrl* + *-* ('6' dash) | Zoom out |
+| *ctrl* + *;* |  Comment selection |
+
 
 ## Behavior Search
 

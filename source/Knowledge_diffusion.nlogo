@@ -25,7 +25,7 @@ to setup
   ]
   ask patches [
     set can-study random-float 1.0 < 0.2
-    if pxcor > 0 [ set pcolor gray]
+    if pxcor > 0 [ set pcolor gray ]
   ]
   reset-ticks
 end
@@ -33,50 +33,41 @@ end
 to go
   ask turtles [
 ;    draw-polygon 8 who * 0.5 ;; create polygon with side-length of the turtle's index (who)
-    move
+    move ;
+    update-links ; TODO --> Create links with surrounding turtles and delete links that are too big
+    lottery ; TODO --> Probabilities to : Practice ;
+    lose-knowledge ; TODO
   ]
   ;; wait 0.5
   tick
 end
 
 
-;; MY PROCEDURES
+;;;;;;; TURTLE PROCEDURES
 
 to move
-  fd 1 ;; forward 1 step
+  (ifelse is-extravert? self [
+
+  ] is-introvert? self [
+
+  ])
+
+  fd move-speed ;; forward 1 move-speed (input)
   rt random 10 ;; turn right by 0 up to 9 units
   lt random 10 ;; turn left
 end
 
-;; MY USELESS TEST PROCEDURES
+to move-extraverts
 
-to draw-polygon [num-sides len] ;; turtle procedure
-  pen-down
-  repeat num-sides [
-    fd len
-    rt 360 / num-sides
-  ]
-  pen-up
-;  show who ;; Prints the index of the turtle who called procedure BUT SOOOOO SLOW
 end
 
-to swap-colors [turtle1 turtle2]
-  let temp [color] of turtle1
-  ask turtle1 [ set color [color] of turtle2 ]
-  ask turtle2 [ set color temp ]
-end
-
-to-report abs-value [number]
-  ifelse number >= 0
-    [ report number ]
-    [ report (- number) ]
-end
+;;;;;;; LINKS PROCEDURES
 @#$#@#$#@
 GRAPHICS-WINDOW
-480
-66
-917
-504
+541
+74
+978
+512
 -1
 -1
 13.0
@@ -100,10 +91,10 @@ ticks
 30.0
 
 BUTTON
-91
-125
-154
-158
+169
+240
+232
+273
 NIL
 setup
 NIL
@@ -117,10 +108,10 @@ NIL
 1
 
 BUTTON
-192
-125
-255
-158
+270
+240
+333
+273
 NIL
 go
 T
@@ -134,10 +125,10 @@ NIL
 1
 
 PLOT
-49
-250
-385
-507
+1093
+53
+1429
+310
 Turtles on patches with pxcor divisible by 5
 NIL
 NIL
@@ -149,7 +140,18 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot count turtles"
+"default" 1.0 0 -16777216 true "" "plot count extraverts"
+
+INPUTBOX
+55
+60
+137
+120
+move-speed
+0.0
+1
+0
+Number
 
 @#$#@#$#@
 ## WHAT IS IT?
