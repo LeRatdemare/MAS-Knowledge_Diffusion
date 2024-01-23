@@ -105,7 +105,23 @@ Or we can do more complex stuff :
 |  **\<breeds\>-on** agent (or agentset) \[ commands \] | Reports an agentset with all \<*breeds*\> turtles on the same patch that the give agent or agentset |
 |  **is-\<breed\>?** value \[ commands \] | Reports true if value is a \<*breed*\> turtle |
 
+## Lists
+
+* Is ordered starting from 0
+* Can contain any types all at the same time
+
+|  Procedure/Variable | Description |
+|  --------- | ----------- |
+| **set** mylist \[ elem1 elem2 elem3 \] | Creates a list of constants describing its content |
+| (**list** reporter-1 reporter-2 reproter-3) \] | Reports a list using reporters |
+| **foreach** list \[ x -> \[ commands \] \] | Applies *commands* to each element of *list* which will be referenced as *x* in the commands |
+| **n-values** n \[ i -> \[ commands \] \] | Reports a list of n values an applies *commands* to each element index (starting 0) which will be referenced as *i* in the commands |
+| (**sentence** \[1 2\] 3 \[4 5\] (3 + 3) 7) | Reports a list containing all values \[1 2 3 4 5 6 7\] |
+| **replace-item** i mylist x | Reports mylist with element at index *i* replaced by *x* |
+
+
 ## Shortcuts
+
 | Shortcut | Description |
 |  --------- | ----------- |
 | *ctrl* + *-* | Hide the current procedure |
