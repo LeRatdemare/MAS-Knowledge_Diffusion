@@ -1,6 +1,6 @@
 globals [disciplines] ;; Defining a global variable without using interface
 turtles-own [knowledge] ;; Defining a turtle variable
-patches-own [can-study] ;; Defining a patch variable
+patches-own [discipline] ;; Defining a patch variable
 links-own [affinity] ;; Defining a link variable
 
 breed [extraverts extravert]
@@ -11,10 +11,16 @@ breed [introverts introvert]
 to setup
   clear-all
 
+  ;set nb-disciplines 5 ; max is 'count base-colors'
+  set disciplines up-to-n-of nb-disciplines base-colors ; Each discipline is represented by a color
+  set disciplines map [d -> d + random 10 ] disciplines
+  print disciplines
+
   create-extraverts 5
   create-introverts 5
   ask turtles [
     set knowledge random 100
+    set size normalize-value knowledge 0 100 1 4
     fd 50 ;; spread them around
   ]
   ask extraverts [
@@ -24,8 +30,7 @@ to setup
     set color 46
   ]
   ask patches [
-    set can-study random-float 1.0 < 0.2
-    if pxcor > 0 [ set pcolor gray ]
+    set pcolor one-of disciplines
   ]
   reset-ticks
 end
@@ -34,9 +39,9 @@ to go
   ask turtles [
 ;    draw-polygon 8 who * 0.5 ;; create polygon with side-length of the turtle's index (who)
     move ;
-    update-links ; TODO --> Create links with surrounding turtles and delete links that are too big
-    lottery ; TODO --> Probabilities to : Practice ;
-    lose-knowledge ; TODO
+    ;update-links ; TODO --> Create links with surrounding turtles and delete links that are too big
+    ;lottery ; TODO --> Probabilities to : Practice ;
+    ;lose-knowledge ; TODO
   ]
   ;; wait 0.5
   tick
@@ -62,6 +67,12 @@ to move-extraverts
 end
 
 ;;;;;;; LINKS PROCEDURES
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REPORTERS
+to-report normalize-value [original-value min-original max-original min-normal max-normal]
+  report (original-value - min-original) / (max-original - min-original) * (max-normal - min-normal) + min-normal
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 541
@@ -149,6 +160,17 @@ INPUTBOX
 120
 move-speed
 0.0
+1
+0
+Number
+
+INPUTBOX
+152
+61
+233
+121
+nb-disciplines
+2.0
 1
 0
 Number

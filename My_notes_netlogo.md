@@ -118,12 +118,18 @@ Or we can do more complex stuff :
 |  --------- | ----------- |
 | **set** mylist \[ elem1 elem2 elem3 \] | Creates a list of constants describing its content |
 | (**list** reporter-1 reporter-2 reproter-3) \] | Reports a list using reporters |
-| **foreach** list \[ x -> \[ commands \] \] | Applies *commands* to each element of *list* which will be referenced as *x* in the commands |
+| **foreach** list \[ x -> \[ commands \] \] | For each element *x* of *list*, applies *commands* (Does **NOT** modify the list itself |
 | **map** \[ x -> \[ commands \] \] list | Reports a copy of *list* with *commands* applied to each of its elements referenced as *x* in the commands |
 | **n-values** n \[ i -> \[ commands \] \] | Reports a list of n values and applies *commands* to each element index (starting 0) which will be referenced as *i* in the commands |
 | (**sentence** \[1 2\] 3 \[4 5\] (3 + 3) 7) | Reports a list containing all values \[1 2 3 4 5 6 7\] |
 | **replace-item** i mylist x | Reports mylist with element at index *i* replaced by *x* (*mylist* is not modified however) |
 | **lput**(respectively **fput**) x mylist | Reports mylist with *x* added at the end (respectively at the beginning) |
+
+## Other interesting commands
+
+| Shortcut | Description |
+|  --------- | ----------- |
+| **carefully** \[ commands1 \] \[ commands2 \] | If a runtime error occurs inside *commands1*, NetLogo won't stop and alert the user that an error occurred. It will suppress the error and run *commands2* instead. |
 
 
 ## Shortcuts
