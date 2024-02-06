@@ -147,7 +147,7 @@ PLOT
 53
 1429
 310
-Mean knowledge of discipline 0
+Mean knowledge per discipline
 NIL
 NIL
 0.0
@@ -155,10 +155,10 @@ NIL
 0.0
 10.0
 true
-false
-"let i 0\nrepeat nb-disciplines [\n  let pen-name (word \"pen-\" i)\n  print pen-name\n  create-temporary-plot-pen pen-name\n  set-plot-pen-color item disciplines i\n  set i i + 1\n]" "let i 0\nrepeat nb-disciplines [\n  set-current-plot-pen (word \"pen-\" i)\n  plot mean [item i knowledge] of turtles\n  set i i + 1\n]"
+true
+"let i 0\nrepeat nb-disciplines [\n  let pen-name (word \"discipline \" i)\n  print pen-name\n  create-temporary-plot-pen pen-name\n  set-plot-pen-color item i disciplines - discipline-dark-sub\n  set i i + 1\n]" "let i 0\nrepeat nb-disciplines [\n  set-current-plot-pen (word \"discipline \" i)\n  plot mean [item i knowledge] of turtles\n  set i i + 1\n]"
 PENS
-"default" 1.0 0 -16777216 true "set-plot-pen-color item 0 disciplines - discipline-dark-sub" "plot mean [item 0 knowledge] of turtles"
+"Knowledge mid-value" 1.0 0 -16777216 true "" "plot 50"
 
 INPUTBOX
 55
