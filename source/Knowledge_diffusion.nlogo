@@ -1,4 +1,8 @@
-globals [disciplines] ;; Defining a global variable without using interface
+globals [
+  disciplines
+  discipline-light-add
+  discipline-dark-sub
+] ;; Defining a global variable without using interface
 turtles-own [knowledge] ;; Defining a turtle variable
 patches-own [discipline] ;; Defining a patch variable
 links-own [affinity] ;; Defining a link variable
@@ -12,22 +16,24 @@ to setup
   clear-all
 
   ;set nb-disciplines 5 ; max is 'count base-colors'
+  set discipline-light-add 4
+  set discipline-dark-sub 4
   set disciplines up-to-n-of nb-disciplines base-colors ; Each discipline is represented by a color
-  set disciplines map [d -> d + random 10 ] disciplines
+  set disciplines map [d -> d + discipline-light-add ] disciplines
   print disciplines
 
   create-extraverts 5
   create-introverts 5
   ask turtles [
-    set knowledge random 100
-    set size normalize-value knowledge 0 100 1 4
+    set knowledge map [random 100] disciplines ;; Turtles knowledge is a nb-disciplines size list of random values
+    set size 2
     fd 50 ;; spread them around
   ]
   ask extraverts [
-    set color 65
+    set color 55
   ]
   ask introverts [
-    set color 46
+    set color 85
   ]
   ask patches [
     set pcolor one-of disciplines
@@ -41,7 +47,7 @@ to go
     move ;
     ;update-links ; TODO --> Create links with surrounding turtles and delete links that are too big
     ;lottery ; TODO --> Probabilities to : Practice ;
-    ;lose-knowledge ; TODO
+    lose-knowledge ; TODO
   ]
   ;; wait 0.5
   tick
@@ -62,8 +68,9 @@ to move
   lt random 10 ;; turn left
 end
 
-to move-extraverts
-
+to lose-knowledge ;; Turtle procedure
+  set knowledge map [x -> max (list 0 (x - knowledge-loss))] knowledge
+  show knowledge
 end
 
 ;;;;;;; LINKS PROCEDURES
@@ -140,7 +147,7 @@ PLOT
 53
 1429
 310
-Turtles on patches with pxcor divisible by 5
+Mean knowledge of discipline 0
 NIL
 NIL
 0.0
@@ -149,9 +156,9 @@ NIL
 10.0
 true
 false
-"" ""
+"let i 0\nrepeat nb-disciplines [\n  let pen-name (word \"pen-\" i)\n  print pen-name\n  create-temporary-plot-pen pen-name\n  set-plot-pen-color item disciplines i\n  set i i + 1\n]" "let i 0\nrepeat nb-disciplines [\n  set-current-plot-pen (word \"pen-\" i)\n  plot mean [item i knowledge] of turtles\n  set i i + 1\n]"
 PENS
-"default" 1.0 0 -16777216 true "" "plot count extraverts"
+"default" 1.0 0 -16777216 true "set-plot-pen-color item 0 disciplines - discipline-dark-sub" "plot mean [item 0 knowledge] of turtles"
 
 INPUTBOX
 55
@@ -159,7 +166,7 @@ INPUTBOX
 137
 120
 move-speed
-0.0
+1.0
 1
 0
 Number
@@ -170,6 +177,17 @@ INPUTBOX
 233
 121
 nb-disciplines
+4.0
+1
+0
+Number
+
+INPUTBOX
+53
+130
+137
+190
+knowledge-loss
 2.0
 1
 0
