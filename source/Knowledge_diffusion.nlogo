@@ -1,9 +1,13 @@
 globals [
+  max-knowledge
   disciplines
   discipline-light-add
   discipline-dark-sub
 ] ;; Defining a global variable without using interface
-turtles-own [knowledge] ;; Defining a turtle variable
+turtles-own [
+  knowledge
+  knowledge-gain
+] ;; Defining a turtle variable
 patches-own [discipline] ;; Defining a patch variable
 links-own [affinity] ;; Defining a link variable
 
@@ -15,6 +19,7 @@ breed [introverts introvert]
 to setup
   clear-all
 
+  set max-knowledge 100
   ;set nb-disciplines 5 ; max is 'count base-colors'
   set discipline-light-add 4
   set discipline-dark-sub 4
@@ -22,10 +27,11 @@ to setup
   set disciplines map [d -> d + discipline-light-add ] disciplines
   print disciplines
 
-  create-extraverts 5
-  create-introverts 5
+  create-extraverts nb-turtles-per-type
+  create-introverts nb-turtles-per-type
   ask turtles [
-    set knowledge map [random 100] disciplines ;; Turtles knowledge is a nb-disciplines size list of random values
+    set knowledge map [random max-knowledge] disciplines ;; Turtles knowledge is a nb-disciplines size list of random values
+    set knowledge-gain 10
     set size 2
     fd 50 ;; spread them around
   ]
@@ -46,7 +52,7 @@ to go
 ;    draw-polygon 8 who * 0.5 ;; create polygon with side-length of the turtle's index (who)
     move ;
     ;update-links ; TODO --> Create links with surrounding turtles and delete links that are too big
-    ;lottery ; TODO --> Probabilities to : Practice ;
+    lottery ; TODO --> Probabilities to : Practice ;
     lose-knowledge ; TODO
   ]
   ;; wait 0.5
@@ -56,7 +62,7 @@ end
 
 ;;;;;;; TURTLE PROCEDURES
 
-to move
+to move ;; Turtle procedure
   (ifelse is-extravert? self [
 
   ] is-introvert? self [
@@ -67,18 +73,29 @@ to move
   rt random 10 ;; turn right by 0 up to 9 units
   lt random 10 ;; turn left
 end
-
+to lottery ;; Turtle procedure
+  if random-float 1 < study-rate [ practice get-index-discipline-here ];; study-rate chance of practicing the current discipline
+end
 to lose-knowledge ;; Turtle procedure
   set knowledge map [x -> max (list 0 (x - knowledge-loss))] knowledge
-  show knowledge
 end
-
+to practice [ index-discipline ] ;; Turtle procedure
+  let old-value item index-discipline knowledge
+  set knowledge replace-item index-discipline knowledge (old-value + knowledge-gain)
+end
 ;;;;;;; LINKS PROCEDURES
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REPORTERS
 to-report normalize-value [original-value min-original max-original min-normal max-normal]
   report (original-value - min-original) / (max-original - min-original) * (max-normal - min-normal) + min-normal
+end
+to-report get-index-discipline-here ;; Reports the discipline index from the patch's color
+  let i 0
+  while [ i < nb-disciplines and [pcolor] of patch-here != item i disciplines] [ set i i + 1 ]
+
+  ;; Si on a trouvé la couleur on renvoie l'index
+  ifelse i < nb-disciplines [ report i ] [ report (- 1) ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -148,12 +165,12 @@ PLOT
 1429
 310
 Mean knowledge per discipline
-NIL
-NIL
+Time
+Knowledge
 0.0
 10.0
 0.0
-10.0
+100.0
 true
 true
 "let i 0\nrepeat nb-disciplines [\n  let pen-name (word \"discipline \" i)\n  print pen-name\n  create-temporary-plot-pen pen-name\n  set-plot-pen-color item i disciplines - discipline-dark-sub\n  set i i + 1\n]" "let i 0\nrepeat nb-disciplines [\n  set-current-plot-pen (word \"discipline \" i)\n  plot mean [item i knowledge] of turtles\n  set i i + 1\n]"
@@ -172,10 +189,10 @@ move-speed
 Number
 
 INPUTBOX
-152
-61
-233
-121
+149
+129
+230
+189
 nb-disciplines
 4.0
 1
@@ -189,6 +206,28 @@ INPUTBOX
 190
 knowledge-loss
 2.0
+1
+0
+Number
+
+INPUTBOX
+148
+60
+252
+120
+nb-turtles-per-type
+20.0
+1
+0
+Number
+
+INPUTBOX
+54
+198
+119
+258
+study-rate
+0.2
 1
 0
 Number
