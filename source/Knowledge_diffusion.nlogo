@@ -7,6 +7,8 @@ globals [
 turtles-own [
   knowledge
   knowledge-gain
+  interaction-proba
+  is-free-for-interaction
 ] ;; Defining a turtle variable
 patches-own [discipline] ;; Defining a patch variable
 links-own [affinity] ;; Defining a link variable
@@ -23,23 +25,24 @@ to setup
   ;set nb-disciplines 5 ; max is 'count base-colors'
   set discipline-light-add 4
   set discipline-dark-sub 4
-  set disciplines up-to-n-of nb-disciplines base-colors ; Each discipline is represented by a color
+  set disciplines up-to-n-of nb-disciplines base-colors ;; Each discipline is represented by a color
   set disciplines map [d -> d + discipline-light-add ] disciplines
   print disciplines
 
-  create-extraverts nb-turtles-per-type
-  create-introverts nb-turtles-per-type
+  create-extraverts nb-turtles-per-type [ ;; Input variable
+    set color 55
+    set interaction-proba total-interaction-proba * 0.8 ;; Input variable
+  ]
+  create-introverts nb-turtles-per-type [ ;; Input variable
+    set color 85
+    set interaction-proba total-interaction-proba * 0.2 ;; Input variable
+  ]
   ask turtles [
     set knowledge map [random max-knowledge] disciplines ;; Turtles knowledge is a nb-disciplines size list of random values
     set knowledge-gain 10
+    set is-free-for-interaction true
     set size 2
     fd 50 ;; spread them around
-  ]
-  ask extraverts [
-    set color 55
-  ]
-  ask introverts [
-    set color 85
   ]
   ask patches [
     set pcolor one-of disciplines
@@ -50,10 +53,13 @@ end
 to go
   ask turtles [
 ;    draw-polygon 8 who * 0.5 ;; create polygon with side-length of the turtle's index (who)
-    move ;
+    move
     ;update-links ; TODO --> Create links with surrounding turtles and delete links that are too big
     lottery ; TODO --> Probabilities to : Practice ;
     lose-knowledge ; TODO
+  ]
+  ask turtles [ ;; Reset values
+    set is-free-for-interaction true
   ]
   ;; wait 0.5
   tick
@@ -74,15 +80,25 @@ to move ;; Turtle procedure
   lt random 10 ;; turn left
 end
 to lottery ;; Turtle procedure
+  ; Turtles may practice discipline
   if random-float 1 < study-rate [ practice get-index-discipline-here ];; study-rate chance of practicing the current discipline
+  ; Turtles may interact
+  ; [ turtles-here ] of [ neighbors ] of patch-here
+  let turtles-around other turtles in-radius interaction-radius ;; --> Can be replaced by 'in-radius interaction-radius'
+  ;; TODO --> Remove turtles that have already interacted this turn
+  try-interact turtles-around
 end
 to lose-knowledge ;; Turtle procedure
   set knowledge map [x -> max (list 0 (x - knowledge-loss))] knowledge
 end
 to practice [ index-discipline ] ;; Turtle procedure
   let old-value item index-discipline knowledge
-  set knowledge replace-item index-discipline knowledge (old-value + knowledge-gain)
+  set knowledge replace-item index-discipline knowledge min (list 100 (old-value + knowledge-gain))
 end
+to try-interact [turtles-around]
+  ; TODO
+end
+
 ;;;;;;; LINKS PROCEDURES
 
 
@@ -92,7 +108,7 @@ to-report normalize-value [original-value min-original max-original min-normal m
 end
 to-report get-index-discipline-here ;; Reports the discipline index from the patch's color
   let i 0
-  while [ i < nb-disciplines and [pcolor] of patch-here != item i disciplines] [ set i i + 1 ]
+  while [ i < nb-disciplines and [pcolor] of patch-here != item i disciplines ] [ set i i + 1 ]
 
   ;; Si on a trouvé la couleur on renvoie l'index
   ifelse i < nb-disciplines [ report i ] [ report (- 1) ]
@@ -126,10 +142,10 @@ ticks
 30.0
 
 BUTTON
-169
-240
-232
-273
+324
+260
+387
+293
 NIL
 setup
 NIL
@@ -143,10 +159,10 @@ NIL
 1
 
 BUTTON
-270
-240
-333
-273
+425
+260
+488
+293
 NIL
 go
 T
@@ -183,7 +199,7 @@ INPUTBOX
 137
 120
 move-speed
-1.0
+0.3
 1
 0
 Number
@@ -194,7 +210,7 @@ INPUTBOX
 230
 189
 nb-disciplines
-4.0
+2.0
 1
 0
 Number
@@ -216,21 +232,51 @@ INPUTBOX
 252
 120
 nb-turtles-per-type
-20.0
+5.0
 1
 0
 Number
 
 INPUTBOX
-54
-198
-119
-258
+238
+129
+303
+189
 study-rate
-0.2
+0.4
 1
 0
 Number
+
+SLIDER
+32
+408
+221
+441
+total-interaction-proba
+total-interaction-proba
+0
+1
+0.5
+0.1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+32
+370
+204
+403
+interaction-radius
+interaction-radius
+0
+2
+1.0
+0.5
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
