@@ -11,7 +11,10 @@ turtles-own [
   is-free-for-interaction
 ] ;; Defining a turtle variable
 patches-own [discipline] ;; Defining a patch variable
-links-own [affinity] ;; Defining a link variable
+links-own [
+  affinity
+  durability
+] ;; Defining a link variable
 
 breed [extraverts extravert]
 breed [introverts introvert]
@@ -84,7 +87,7 @@ to lottery ;; Turtle procedure
   if random-float 1 < study-rate [ practice get-index-discipline-here ];; study-rate chance of practicing the current discipline
   ; Turtles may interact
   ; [ turtles-here ] of [ neighbors ] of patch-here
-  let turtles-around other turtles in-radius interaction-radius ;; --> Can be replaced by 'in-radius interaction-radius'
+  let turtles-around other turtles in-radius interaction-radius with [ is-free-for-interaction ];; --> Can be replaced by 'in-radius interaction-radius'
   ;; TODO --> Remove turtles that have already interacted this turn
   try-interact turtles-around
 end
@@ -96,7 +99,10 @@ to practice [ index-discipline ] ;; Turtle procedure
   set knowledge replace-item index-discipline knowledge min (list 100 (old-value + knowledge-gain))
 end
 to try-interact [turtles-around]
-  ; TODO
+  create-links-to turtles-around []
+  ask turtles-around [
+    set is-free-for-interaction false
+  ]
 end
 
 ;;;;;;; LINKS PROCEDURES
@@ -210,7 +216,7 @@ INPUTBOX
 230
 189
 nb-disciplines
-2.0
+4.0
 1
 0
 Number
@@ -221,7 +227,7 @@ INPUTBOX
 137
 190
 knowledge-loss
-2.0
+1.0
 1
 0
 Number
