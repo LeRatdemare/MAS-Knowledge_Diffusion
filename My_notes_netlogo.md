@@ -118,7 +118,7 @@ Or we can do more complex stuff :
 |  --------- | ----------- |
 | **set** mylist \[ elem1 elem2 elem3 \] | Creates a list of constants describing its content |
 | (**list** reporter-1 reporter-2 reproter-3) \] | Reports a list using reporters |
-| **foreach** list \[ x -> \[ commands \] \] | For each element *x* of *list*, applies *commands* (Does **NOT** modify the list itself |
+| **foreach** list \[ x -> \[ commands \] \] | For each element *x* of *list*, applies *commands* (Does **NOT** modify the list itself) |
 | **map** \[ x -> \[ commands \] \] list | Reports a copy of *list* with *commands* applied to each of its elements referenced as *x* in the commands |
 | **n-values** n \[ i -> \[ commands \] \] | Reports a list of n values and applies *commands* to each element index (starting 0) which will be referenced as *i* in the commands |
 | (**sentence** \[1 2\] 3 \[4 5\] (3 + 3) 7) | Reports a list containing all values \[1 2 3 4 5 6 7\] |

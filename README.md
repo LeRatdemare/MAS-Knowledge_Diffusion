@@ -1,6 +1,6 @@
 # MAS-Knowledge_Diffusion
 
-![Environnement](screenshots/Environnement_080224-01.jpg)
+![Environnement](screenshots/Environnement_100224-01.jpg)
 
 ## What is it ?
 

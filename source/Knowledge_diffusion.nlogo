@@ -3,6 +3,8 @@ globals [
   disciplines
   discipline-light-add
   discipline-dark-sub
+  extraverts-number-of-links
+  introverts-number-of-links
 ] ;; Defining a global variable without using interface
 turtles-own [
   knowledge
@@ -32,13 +34,14 @@ to setup
   set disciplines map [d -> d + discipline-light-add ] disciplines
   print disciplines
 
+  set-default-shape turtles "person"
   create-extraverts nb-turtles-per-type [ ;; Input variable
     set color 55
-    set interaction-proba total-interaction-proba * 0.8 ;; Input variable
+    set interaction-proba total-interaction-proba * 0.95 ;; Input variable
   ]
   create-introverts nb-turtles-per-type [ ;; Input variable
     set color 85
-    set interaction-proba total-interaction-proba * 0.2 ;; Input variable
+    set interaction-proba total-interaction-proba * 0.05 ;; Input variable
   ]
   ask turtles [
     set knowledge map [random max-knowledge] disciplines ;; Turtles knowledge is a nb-disciplines size list of random values
@@ -65,6 +68,7 @@ to go
     set is-free-for-interaction true
   ]
   ;; wait 0.5
+  calc-number-of-links
   tick
 end
 
@@ -87,7 +91,7 @@ to lottery ;; Turtle procedure
   if random-float 1 < study-rate [ practice get-index-discipline-here ];; study-rate chance of practicing the current discipline
   ; Turtles may interact
   ; [ turtles-here ] of [ neighbors ] of patch-here
-  let turtles-around other turtles in-radius interaction-radius with [ is-free-for-interaction ];; --> Can be replaced by 'in-radius interaction-radius'
+  let turtles-around other turtles-here with [ is-free-for-interaction ];; --> Can be replaced by 'in-radius interaction-radius'
   ;; TODO --> Remove turtles that have already interacted this turn
   try-interact turtles-around
 end
@@ -99,13 +103,37 @@ to practice [ index-discipline ] ;; Turtle procedure
   set knowledge replace-item index-discipline knowledge min (list 100 (old-value + knowledge-gain))
 end
 to try-interact [turtles-around]
-  create-links-to turtles-around []
+  let my-interaction-proba interaction-proba
+  ask turtles-around [
+    if random-float 1 < my-interaction-proba + interaction-proba [
+      create-link-to myself [
+        ;    set durability
+      ]
+    ]
+  ]
   ask turtles-around [
     set is-free-for-interaction false
   ]
 end
 
 ;;;;;;; LINKS PROCEDURES
+
+
+
+;;;;;;; OBSERVER PROCEDURES
+to calc-number-of-links
+  let nb-links 0
+  ask extraverts [
+    set nb-links nb-links + count my-links
+  ]
+  set extraverts-number-of-links nb-links
+
+  set nb-links 0
+  ask introverts [
+    set nb-links nb-links + count my-links
+  ]
+  set introverts-number-of-links nb-links
+end
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; REPORTERS
@@ -205,7 +233,7 @@ INPUTBOX
 137
 120
 move-speed
-0.3
+1.0
 1
 0
 Number
@@ -269,20 +297,27 @@ total-interaction-proba
 NIL
 HORIZONTAL
 
-SLIDER
-32
-370
-204
-403
-interaction-radius
-interaction-radius
-0
-2
-1.0
-0.5
+MONITOR
+1094
+317
+1192
+362
+Extraverts links
+extraverts-number-of-links
 1
-NIL
-HORIZONTAL
+1
+11
+
+MONITOR
+1196
+317
+1292
+362
+Introverts links
+introverts-number-of-links
+1
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
