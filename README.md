@@ -5,8 +5,8 @@
 ## Install Procedure
 
 1. Download the source/Knowledge_diffusion.nlogo file.
-2. Open (Netlogo web)[https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/IABM%20Textbook/chapter%202/Simple%20Economy.nlogo]
-3. In (Netlogo web)[https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/IABM%20Textbook/chapter%202/Simple%20Economy.nlogo], click on Upload a Model:'select file'
+2. Open [Netlogo web](https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/IABM%20Textbook/chapter%202/Simple%20Economy.nlogo)
+3. In [Netlogo web](https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/IABM%20Textbook/chapter%202/Simple%20Economy.nlogo), click on Upload a Model:'select file'
 4. Chose the downloaded .nlogo file
 5. Enjoy !
 
