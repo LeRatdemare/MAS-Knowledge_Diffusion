@@ -2,6 +2,14 @@
 
 ![Environnement](screenshots/Environnement_100224-01.jpg)
 
+## Install Procedure
+
+1. Download the source/Knowledge_diffusion.nlogo file.
+2. Open (Netlogo web)[https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/IABM%20Textbook/chapter%202/Simple%20Economy.nlogo]
+3. In (Netlogo web)[https://www.netlogoweb.org/launch#https://www.netlogoweb.org/assets/modelslib/IABM%20Textbook/chapter%202/Simple%20Economy.nlogo], click on Upload a Model:'select file'
+4. Chose the downloaded .nlogo file
+5. Enjoy !
+
 ## What is it ?
 
 The objective of this multi-agent system (MAS) is to simulate the diffusion of agents' knowledge within a closed system based on their affinities with one another. Agents can enhance their knowledge in a finite number of disciplines through practice. Their knowledge can also evolve (increase/decrease) through interactions with other agents, varying in magnitude based on their affinities with each other. Additionally, their knowledge naturally decreases over time when disciplines are not practiced.
